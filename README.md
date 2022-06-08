@@ -8,6 +8,19 @@
 git clone https://github.com/cianoid/api-quadratic-equation.git
 ```
 
+# Создание .env-файла
+
+Создайте .env-файлы в папке ```api-quadratic-equation/quadratic```
+
+Пример заполнения файла:
+```
+SECRET_KEY=django-seeetre-raskljdio23452o3@#$R$@TG%$
+DEBUG=0
+ALLOWED_HOSTS=localhost
+DB_ENGINE=django.db.backends.sqlite3
+DB_NAME=db.sqlite3
+```
+
 # Запуск в dev-режиме
 
 Предусмотрено два варианта запуска сервиса. В dev-режиме и в режиме контейнера Docker
