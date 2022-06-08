@@ -38,8 +38,4 @@ class EquationSerializer(serializers.Serializer):
         b = instance.pop('b')
         c = instance.pop('c')
 
-        instance = calculate_equation(a, b, c)
-
-        return instance
-
-
+        return calculate_equation(a, b, c)
