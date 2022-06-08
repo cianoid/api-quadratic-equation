@@ -1,0 +1,113 @@
+openapi: 3.0.2
+info:
+  title: 'Quadratic Equation API'
+  version: ''
+  description: |
+    запросы к API начинаются с `/api/v1.0/`
+
+    # Описание
+    Проект **Quadratic Equation** предназначен для решения квадратных уравнений.
+
+servers:
+  - url: /api/v1.0/
+
+tags:
+  - name: EQUATION
+    description: Решение квадратных уравнений
+
+paths:
+  /equation/:
+    post:
+      tags:
+        - EQUATION
+      operationId: Получение решения квадратного уравнения
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Два решения (D > 0):
+                value:
+                  a: 10
+                  b: 6
+                  c: -4
+              Одно решение (D == 0):
+                value:
+                  a: 1
+                  b: -6
+                  c: 9
+              Нет решений (D < 0):
+                value:
+                  a: 1
+                  b: 1
+                  c: 2
+            schema:
+              required:
+                - a
+                - b
+                - c
+              properties:
+                a:
+                  type: float
+                  description: Коэффициент a. Не может быть равен `0`
+                b:
+                  type: float
+                  description: Коэффициент b
+                c:
+                  type: float
+                  description: Коэффициент c
+      responses:
+        200:
+          content:
+            application/json:
+              examples:
+                Два решения (D > 0):
+                  value:
+                    roots_count: 2
+                    roots: [0.4, -1.0]
+                Одно решение (D == 0):
+                  value:
+                    roots_count: 1
+                    roots: [3.0]
+                Нет решений (D < 0):
+                  value:
+                    roots_count: 0
+                    roots: []
+              schema:
+                type: object
+                properties:
+                  roots_count:
+                    type: int
+                    readOnly: true
+                    minimum: 0
+                    maximum: 2
+                    description: 'Количество корней уравнения.'
+                  roots:
+                    name: one_root
+                    type: array
+                    items:
+                      type: float
+                    readOnly: true
+                    description: 'Массив корней уравнения'
+                    minItems: 0
+                    maxItems: 2
+          description: 'Удачное выполнение запроса'
+        '400':
+          content:
+            application/json:
+              examples:
+                Не переданы параметры a, b:
+                  value:
+                    errors: ['Не передан параметр a', 'Не передан параметр b']
+                Параметр a == 0:
+                  value:
+                    errors: ['Параметр a не может быть равен 0']
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+          description: 'Отсутствует обязательное поле или оно некорректно'
