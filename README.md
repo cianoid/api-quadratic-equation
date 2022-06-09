@@ -21,11 +21,16 @@ DB_ENGINE=django.db.backends.sqlite3
 DB_NAME=db.sqlite3
 ```
 
-# Запуск в dev-режиме
+# Запуск проекта
 
-Предусмотрено два варианта запуска сервиса. В dev-режиме и в режиме контейнера Docker
+Предусмотрено три варианта запуска сервиса. 
+* [сервер разработки Django](#запуск-в-dev-режиме)
+* [контейнер Docker](#запуск-в-контейнере-docker)
+* [с помощью docker-compose](#запуск-через-docker-compose)
 
-## Установка venv с зависимостями
+## Запуск в dev-режиме
+
+### Установка venv с зависимостями
 
 ```
 cd api-quadratic-equation
@@ -43,23 +48,34 @@ cd quadratic
 pip install -r requirements.txt
 ```
 
-## Миграции БД и запуск сервиса 
+### Миграции БД и запуск сервиса 
 
 ```
 python manage.py migrate
-python manage.py runserver localhost:8080
+python manage.py runserver localhost:8000
 ```
 
-## Запуск тестов
+### Запуск тестов
+
 ```
 python maange.py test
 ```
 
-# Запуск в контейнере Docker
+## Запуск в контейнере Docker
 
 ```
-docker build -t quadratic_equation .
+docker build -t quadratic_equation:latest .
 docker run --name quadratic_equation -d -p 8000:8000 quadratic_equation
+```
+
+## Запуск через docker-compose
+
+В проекте подготовлен образ сервиса и загружен на Docker Hub. Проект запускается в двух контейнерах (backend, nginx) и слушает запросы на порту 8000
+
+Для запуска необходимо скопировать файл .env в директорию **infrastructure** и выполнить в ней же следующую команду
+
+```
+docker-compose up -d
 ```
 
 # Автор
