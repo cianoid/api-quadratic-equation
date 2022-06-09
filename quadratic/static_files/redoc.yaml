@@ -84,7 +84,6 @@ paths:
                     maximum: 2
                     description: 'Количество корней уравнения.'
                   roots:
-                    name: one_root
                     type: array
                     items:
                       type: float
