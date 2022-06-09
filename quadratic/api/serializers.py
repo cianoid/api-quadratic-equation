@@ -28,13 +28,15 @@ class EquationSerializer(serializers.Serializer):
     b = serializers.FloatField(required=True, write_only=True)
     c = serializers.FloatField(required=True, write_only=True)
 
-    def to_representation(self, instance):
-        a = instance.pop('a')
-
+    def validate_a(self, a):
         if a == 0:
             raise serializers.ValidationError(
-                {'errors': ['Параметр a не может быть равен 0']})
+                'Параметр не может быть равен 0')
 
+    def to_representation(self, instance):
+        self.run_validation(instance)
+
+        a = instance.pop('a')
         b = instance.pop('b')
         c = instance.pop('c')
 

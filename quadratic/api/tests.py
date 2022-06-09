@@ -55,10 +55,11 @@ class APITests(APITestCase, URLPatternsTestCase):
             self.equation_endpoint, data={}, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(
-            response.data['errors'],
-            ['Не передан параметр a', 'Не передан параметр b',
-             'Не передан параметр c'])
+
+        for key in ['a', 'b', 'c']:
+            with self.subTest(parameter=key):
+                self.assertEqual(
+                    str(response.data[key][0]), 'Обязательное поле.')
 
     def test_error_if_a_is_zero(self):
         """Тестирование ответа, если a == 0."""
@@ -69,4 +70,4 @@ class APITests(APITestCase, URLPatternsTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
-            response.data['errors'][0], 'Параметр a не может быть равен 0')
+            response.data['a'][0], 'Параметр не может быть равен 0')
