@@ -6,6 +6,7 @@ services:
     restart: always
     volumes:
       - static_backend_value:/app/static/
+      - db_value:/app/db/
     env_file:
       - ./.env
 
@@ -22,3 +23,4 @@ services:
 volumes:
   logs_value:
   static_backend_value:
+  db_value:
