@@ -48,7 +48,7 @@ cd api-quadratic-equation
 
 # для Linux, MacOS
 python3 -m venv venv
-  source venv/bin/activate
+source venv/bin/activate
 
 # для Windows
 python -m venv venv
@@ -75,7 +75,7 @@ python manage.py runserver localhost:8000
 ## Запуск в контейнере Docker
 
 ```
-docker build -t quadratic_equation:latest .
+docker build -t quadratic_equation .
 docker run --env-file .env --name quadratic_equation -it -p 8000:8000 quadratic_equation
 ```
 
